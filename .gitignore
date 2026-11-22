@@ -1,0 +1,22 @@
+# Entornos
+.venv/
+.venv-ia/
+venv/
+env/
+
+# Modelos de Essentia (los baja instalar_deteccion.command, ~530 MB)
+modelos/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Config y datos locales que genera Maceto al usarlo
+*.json
+!package.json
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
