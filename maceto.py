@@ -12,6 +12,12 @@ Uso:  maceto.py [CARPETA_ORIGEN]
 
 La primera vez te pedira que elijas donde tienes tus carpetas de generos.
 Se abre solo en el navegador. Para cerrarlo, Ctrl+C en el terminal.
+Copyright (C) 2026 Maceto contributors
+
+Software libre bajo la Licencia Pública General GNU, versión 3 o
+posterior. Se distribuye SIN NINGUNA GARANTÍA. Ver el fichero LICENSE
+o <https://www.gnu.org/licenses/>.
+
 """
 
 import base64
