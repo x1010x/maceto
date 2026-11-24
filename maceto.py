@@ -12,12 +12,6 @@ Uso:  maceto.py [CARPETA_ORIGEN]
 
 La primera vez te pedira que elijas donde tienes tus carpetas de generos.
 Se abre solo en el navegador. Para cerrarlo, Ctrl+C en el terminal.
-Copyright (C) 2026 Maceto contributors
-
-Software libre bajo la Licencia Pública General GNU, versión 3 o
-posterior. Se distribuye SIN NINGUNA GARANTÍA. Ver el fichero LICENSE
-o <https://www.gnu.org/licenses/>.
-
 """
 
 import base64
@@ -1831,6 +1825,125 @@ def tecla(e):
         deshacer()
 
 
+
+MANUAL = [
+    ("¿Qué es Maceto?", [
+        "Maceto reparte tu música en carpetas por género. Va tema a tema:",
+        "te enseña una canción, lee sus tags, te propone a qué carpeta "
+        "mandarla, te deja escucharla, y con un botón (o Enter) la mueve.",
+        "",
+        "Nada se toca hasta que tú lo decides. Mover es mover de carpeta, "
+        "nunca borrar.",
+    ]),
+    ("De un vistazo: las tres zonas", [
+        "• IZQUIERDA — la COLA: las canciones de la carpeta de origen que "
+        "te quedan por repartir.",
+        "• CENTRO — la FICHA del tema actual: carátula, tags, reproductor "
+        "y sugerencias de a dónde va.",
+        "• ABAJO — el ÁRBOL de carpetas de destino, para elegir a mano.",
+    ]),
+    ("Empezar: elegir carpetas", [
+        "Arriba del todo:",
+        "• «Cambiar carpeta…» — elige la carpeta de ORIGEN (de dónde salen "
+        "las canciones a repartir).",
+        "• «Ajustes» — ahí eliges tus ÁRBOLES de género (las carpetas que "
+        "contienen tus subcarpetas de estilos) y otras opciones.",
+        "",
+        "La primera vez te pedirá dónde tienes tus carpetas de géneros.",
+    ]),
+    ("La cola (izquierda) y sus filtros", [
+        "Arriba de la cola ves los contadores: «68 temas · 67 con tags · "
+        "1 sin tags».",
+        "",
+        "• «ocultar los ya archivados» — esconde los que ya moviste o "
+        "saltaste, para centrarte en lo que falta.",
+        "• «entrar en subcarpetas» — si el origen tiene subcarpetas, también "
+        "las recorre.",
+        "• «con tags primero / por carpeta» — el orden de la cola: primero "
+        "las que ya traen género, o tal cual en la carpeta.",
+        "• Filtro por nº de tags: «todos · 0 tags · 1 tag · 2+ tags». "
+        "Útil para atacar primero las que NO tienen género (0 tags), o "
+        "revisar las que tienen varios.",
+        "",
+        "La canción en la que estás se queda MARCADA y centrada aunque "
+        "cambies de tema: no tienes que buscarla con scroll.",
+    ]),
+    ("La ficha del tema (centro)", [
+        "• Título, artista, BPM, duración y bitrate de la canción actual.",
+        "• TAGS: los géneros que ya tiene. El cuadrito verde con un número "
+        "en la cola es cuántos tags tiene.",
+        "   – «+ tag» añade uno a mano.",
+        "   – la ✕ sobre un tag lo quita.",
+        "• «Detectar género» (si instalaste la IA): analiza el audio y "
+        "propone estilos con su % de confianza. Haz clic en uno para "
+        "añadirlo.",
+        "• Las flechas ↑ ↓ pasan los tags entre el FICHERO y las CARPETAS.",
+        "• «FICHERO» muestra el nombre; puedes renombrarlo ahí.",
+    ]),
+    ("El reproductor", [
+        "Debajo de la ficha. Play/pausa y una barra para moverte por la "
+        "canción y escuchar el trozo que quieras antes de decidir.",
+        "",
+        "En Ajustes puedes activar «Reproducir al cambiar de tema» para que "
+        "cada canción suene sola al llegar a ella.",
+    ]),
+    ("Decidir a dónde va: sugerencias y árbol", [
+        "• COINCIDENCIAS — Maceto compara los tags del tema con tus carpetas "
+        "y te sugiere las que encajan. Un clic selecciona esa carpeta como "
+        "destino.",
+        "• «O ELIGE CUALQUIER OTRA» — si ninguna sugerencia vale, busca en "
+        "el ÁRBOL de abajo. El buscador filtra carpetas por nombre.",
+        "   – «nº temas / A-Z» ordena el árbol por cuántas canciones tiene "
+        "cada carpeta o alfabéticamente.",
+        "• «+ Carpeta nueva» (o la tecla C) — crea una carpeta de destino "
+        "donde quieras.",
+    ]),
+    ("Mover, saltar, deshacer (abajo)", [
+        "En la barra de abajo:",
+        "• «MOVER AQUÍ ↵» (o la tecla Enter) — mueve la canción a la carpeta "
+        "de destino seleccionada y pasa a la siguiente.",
+        "• «Saltar» (o → / N) — deja esta canción para luego y pasa a la "
+        "siguiente, sin moverla.",
+        "• «Deshacer» (o Cmd/Ctrl + Z) — revierte el último movimiento.",
+        "",
+        "• «Al mover, sumar el tag de la carpeta» — al mover, le añade a la "
+        "canción el género de la carpeta de destino (así queda etiquetada).",
+    ]),
+    ("Atajos de teclado", [
+        "• Enter — Mover a la carpeta seleccionada",
+        "• → (flecha derecha) o N — Saltar al siguiente",
+        "• C — Crear carpeta nueva",
+        "• Cmd/Ctrl + Z — Deshacer el último movimiento",
+    ]),
+    ("Consejos", [
+        "• Empieza filtrando «0 tags» para etiquetar primero lo que no "
+        "tiene género.",
+        "• Usa «Detectar género» cuando no sepas qué es una canción.",
+        "• Deshacer es tu amigo: si mueves mal, Cmd+Z y a otra.",
+        "• Macete (el programa hermano) busca duplicados; ábrelo aparte.",
+    ]),
+]
+
+
+def abre_ayuda():
+    with ui.dialog() as dlg, ui.card().classes("w-[760px] max-w-full"):
+        with ui.row().classes("w-full items-center"):
+            ui.label("Manual de Maceto").classes("text-xl font-bold")
+            ui.space()
+            ui.button(icon="close", on_click=dlg.close).props("flat round dense")
+        with ui.scroll_area().classes("w-full").style("height:72vh"):
+            for titulo, parrafos in MANUAL:
+                ui.label(titulo).classes(
+                    "text-base font-bold text-primary mt-4 mb-1")
+                for p in parrafos:
+                    if p == "":
+                        ui.element("div").classes("h-1")
+                    else:
+                        ui.label(p).classes("text-sm leading-relaxed")
+        ui.button("Entendido", on_click=dlg.close).props("unelevated")
+    dlg.open()
+
+
 # --------------------------------------------------------------------- pagina
 
 @ui.page("/")
@@ -1846,6 +1959,9 @@ def pagina():
                   ).props("flat dense no-caps color=white")
         ui.button("Ajustes", icon="settings", on_click=ajustes
                   ).props("flat dense no-caps color=white")
+        ui.button("Ayuda", icon="help_outline", on_click=abre_ayuda
+                  ).props("flat dense no-caps color=white").tooltip(
+            "Manual: cómo usar Maceto")
 
     with ui.row().classes("w-full no-wrap gap-4 p-4"):
         # ---- columna izquierda: la cola
